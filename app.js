@@ -1,19 +1,22 @@
 const jsCanvas = document.getElementById('js-canvas'),
   jsRange = document.getElementById('js-range'),
   jsPaintMode = document.getElementById('js-paint-mode'),
+  jsSave = document.getElementById('js-save'),
   jsControlsColor = document.getElementsByClassName('js-controls__color'),
   ctx = jsCanvas.getContext('2d');
 
-const CANVAS_SIZE = 700,
+const CANVAS_LENGTH = 700,
   INITIAL_COLOR = '#2c2c2c';
 
 let painting = false,
   filling = false;
 
-jsCanvas.width = CANVAS_SIZE;
-jsCanvas.height = CANVAS_SIZE;
+jsCanvas.width = CANVAS_LENGTH;
+jsCanvas.height = CANVAS_LENGTH;
 
 ctx.strokeStyle = INITIAL_COLOR;
+ctx.fillStyle = 'white';
+ctx.fillRect(0, 0, jsCanvas.width, jsCanvas.height);
 ctx.fillStyle = INITIAL_COLOR;
 ctx.lineWidth = '2.5';
 
@@ -43,6 +46,10 @@ function handleClickCanvas() {
   }
 }
 
+function handleContextMenu(event) {
+  event.preventDefault();
+}
+
 function handleChangeRange(event) {
   const changedSize = event.target.value;
   ctx.lineWidth = changedSize;
@@ -58,6 +65,14 @@ function handleChangeMode() {
   }
 }
 
+function handleClickSave() {
+  const canvasImage = jsCanvas.toDataURL();
+  const imageLink = document.createElement('a');
+  imageLink.href = canvasImage;
+  imageLink.download = 'PaintJS';
+  imageLink.click();
+}
+
 function handleChangeColor(event) {
   const changedColor = event.target.style.backgroundColor;
   ctx.strokeStyle = changedColor;
@@ -71,12 +86,16 @@ function init() {
     jsCanvas.addEventListener('mouseup', stopPainting);
     jsCanvas.addEventListener('mouseleave', stopPainting);
     jsCanvas.addEventListener('mousedown', handleClickCanvas);
+    jsCanvas.addEventListener('contextmenu', handleContextMenu);
   }
   if (jsRange) {
     jsRange.addEventListener('input', handleChangeRange);
   }
   if (jsPaintMode) {
     jsPaintMode.addEventListener('click', handleChangeMode);
+  }
+  if (jsSave) {
+    jsSave.addEventListener('click', handleClickSave);
   }
   if (jsControlsColor) {
     Array.from(jsControlsColor).forEach((color) =>
@@ -86,3 +105,5 @@ function init() {
 }
 
 init();
+
+// TODO: 선택된 색상, 브러쉬 크기 표시 필요
