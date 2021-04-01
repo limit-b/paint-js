@@ -1,12 +1,15 @@
 const jsCanvas = document.getElementById('js-canvas'),
   jsRange = document.getElementById('js-range'),
+  jsNumber = document.getElementById('js-number'),
   jsPaintMode = document.getElementById('js-paint-mode'),
   jsSave = document.getElementById('js-save'),
   jsControlsColor = document.getElementsByClassName('js-controls__color'),
+  jsSelectColor = document.getElementById('js-select-color'),
   ctx = jsCanvas.getContext('2d');
 
 const CANVAS_LENGTH = 700,
-  INITIAL_COLOR = '#2c2c2c';
+  INITIAL_COLOR = '#2c2c2c',
+  INITIAL_SIZE = '2.5';
 
 let painting = false,
   filling = false;
@@ -18,7 +21,7 @@ ctx.strokeStyle = INITIAL_COLOR;
 ctx.fillStyle = 'white';
 ctx.fillRect(0, 0, jsCanvas.width, jsCanvas.height);
 ctx.fillStyle = INITIAL_COLOR;
-ctx.lineWidth = '2.5';
+ctx.lineWidth = INITIAL_SIZE;
 
 function onMouseMove(event) {
   const x = event.offsetX;
@@ -53,6 +56,7 @@ function handleContextMenu(event) {
 function handleChangeRange(event) {
   const changedSize = event.target.value;
   ctx.lineWidth = changedSize;
+  jsNumber.value = changedSize;
 }
 
 function handleChangeMode() {

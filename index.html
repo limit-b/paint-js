@@ -11,7 +11,7 @@
     <canvas id="js-canvas" class="css-canvas"></canvas>
     <!-- TODO: 선택된 색상, 브러쉬 크기 표시 필요 => 레이아웃 리뉴얼 -->
     <div class="controls">
-      <div class="controls__range">
+      <div class="controls__size">
         <input
           type="range"
           min="0.1"
@@ -19,6 +19,15 @@
           value="2.5"
           step="0.1"
           id="js-range"
+        />
+        <input
+          type="number"
+          min="0.1"
+          max="5.0"
+          value="2.5"
+          step="0.1"
+          id="js-number"
+          class="controls__size-number"
         />
       </div>
       <div class="controls__btns">
@@ -62,6 +71,19 @@
           style="background-color: #5856d6"
           class="js-controls__color controls__color"
         ></div>
+        <div>
+          <select id="js-select-color">
+            <option value="#2c2c2c">Black</option>
+            <option value="white">White</option>
+            <option value="#ff3b30">Red</option>
+            <option value="#ff9500">Orange</option>
+            <option value="#ffcc00">Yellow</option>
+            <option value="#4cd963">Green</option>
+            <option value="#5ac8fa">Sky blue</option>
+            <option value="#0579ff">Blue</option>
+            <option value="#5856d6">Indigo</option>
+          </select>
+        </div>
       </div>
     </div>
     <script src="app.js"></script>

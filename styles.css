@@ -26,8 +26,18 @@ body {
   margin-top: 20px;
 }
 
-.controls .controls__range {
+.controls .controls__size {
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+.controls__size input {
+  margin: 0px 4px;
+}
+
+.controls__size .controls__size-number {
+  width: 3em;
 }
 
 .controls .controls__btns {
@@ -59,6 +69,11 @@ body {
 
 .controls .controls__colors {
   display: flex;
+  align-items: center;
+}
+
+.controls__colors div {
+  margin: 0px 4px;
 }
 
 .controls__colors .controls__color {
