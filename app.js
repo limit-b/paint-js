@@ -4,7 +4,7 @@ const jsCanvas = document.getElementById('js-canvas'),
   jsPaintMode = document.getElementById('js-paint-mode'),
   jsSave = document.getElementById('js-save'),
   jsControlsColor = document.getElementsByClassName('js-controls__color'),
-  jsSelectColor = document.getElementById('js-select-color'),
+  jsColorNameInput = document.getElementById('js-color-name'),
   ctx = jsCanvas.getContext('2d');
 
 const CANVAS_LENGTH = 700,
@@ -77,10 +77,43 @@ function handleClickSave() {
   imageLink.click();
 }
 
+function showColorName(color) {
+  switch (true) {
+    case color === 'rgb(44, 44, 44)':
+      jsColorNameInput.value = 'black';
+      break;
+    case color === 'rgb(255, 59, 48)':
+      jsColorNameInput.value = 'red';
+      break;
+    case color === 'rgb(255, 149, 0)':
+      jsColorNameInput.value = 'orange';
+      break;
+    case color === 'rgb(255, 204, 0)':
+      jsColorNameInput.value = 'yellow';
+      break;
+    case color === 'rgb(76, 217, 99)':
+      jsColorNameInput.value = 'green';
+      break;
+    case color === 'rgb(90, 200, 250)':
+      jsColorNameInput.value = 'sky blue';
+      break;
+    case color === 'rgb(5, 121, 255)':
+      jsColorNameInput.value = 'blue';
+      break;
+    case color === 'rgb(88, 86, 214)':
+      jsColorNameInput.value = 'indigo';
+      break;
+    default:
+      jsColorNameInput.value = color;
+      break;
+  }
+}
+
 function handleChangeColor(event) {
   const changedColor = event.target.style.backgroundColor;
   ctx.strokeStyle = changedColor;
   ctx.fillStyle = changedColor;
+  showColorName(changedColor);
 }
 
 function init() {
