@@ -9,7 +9,7 @@ const jsCanvas = document.getElementById('js-canvas'),
 
 const CANVAS_LENGTH = 700,
   INITIAL_COLOR = '#2c2c2c',
-  INITIAL_SIZE = '2.5';
+  INITIAL_SIZE = 2.5;
 
 let painting = false,
   filling = false;
@@ -54,9 +54,22 @@ function handleContextMenu(event) {
 }
 
 function handleChangeRange(event) {
-  const changedSize = event.target.value;
+  const changedSize = parseFloat(event.target.value);
   ctx.lineWidth = changedSize;
   jsNumber.value = changedSize;
+}
+
+function handleChangeNumber(event) {
+  const changedSize = parseFloat(event.target.value);
+  if (changedSize >= 0.1 && changedSize <= 5) {
+    ctx.lineWidth = changedSize;
+    jsRange.value = changedSize;
+  } else {
+    ctx.lineWidth = INITIAL_SIZE;
+    jsRange.value = INITIAL_SIZE;
+    jsNumber.value = INITIAL_SIZE;
+    alert('0.1에서 5까지의 숫자를 입력하시오');
+  }
 }
 
 function handleChangeMode() {
@@ -78,34 +91,24 @@ function handleClickSave() {
 }
 
 function showColorName(color) {
-  switch (true) {
-    case color === 'rgb(44, 44, 44)':
-      jsColorNameInput.value = 'black';
-      break;
-    case color === 'rgb(255, 59, 48)':
-      jsColorNameInput.value = 'red';
-      break;
-    case color === 'rgb(255, 149, 0)':
-      jsColorNameInput.value = 'orange';
-      break;
-    case color === 'rgb(255, 204, 0)':
-      jsColorNameInput.value = 'yellow';
-      break;
-    case color === 'rgb(76, 217, 99)':
-      jsColorNameInput.value = 'green';
-      break;
-    case color === 'rgb(90, 200, 250)':
-      jsColorNameInput.value = 'sky blue';
-      break;
-    case color === 'rgb(5, 121, 255)':
-      jsColorNameInput.value = 'blue';
-      break;
-    case color === 'rgb(88, 86, 214)':
-      jsColorNameInput.value = 'indigo';
-      break;
-    default:
-      jsColorNameInput.value = color;
-      break;
+  if (color === 'rgb(44, 44, 44)') {
+    jsColorNameInput.value = 'black';
+  } else if (color === 'rgb(255, 59, 48)') {
+    jsColorNameInput.value = 'red';
+  } else if (color === 'rgb(255, 149, 0)') {
+    jsColorNameInput.value = 'orange';
+  } else if (color === 'rgb(255, 204, 0)') {
+    jsColorNameInput.value = 'yellow';
+  } else if (color === 'rgb(76, 217, 99)') {
+    jsColorNameInput.value = 'green';
+  } else if (color === 'rgb(90, 200, 250)') {
+    jsColorNameInput.value = 'sky blue';
+  } else if (color === 'rgb(5, 121, 255)') {
+    jsColorNameInput.value = 'blue';
+  } else if (color === 'rgb(88, 86, 214)') {
+    jsColorNameInput.value = 'indigo';
+  } else {
+    jsColorNameInput.value = color;
   }
 }
 
@@ -127,6 +130,9 @@ function init() {
   }
   if (jsRange) {
     jsRange.addEventListener('input', handleChangeRange);
+  }
+  if (jsNumber) {
+    jsNumber.addEventListener('change', handleChangeNumber);
   }
   if (jsPaintMode) {
     jsPaintMode.addEventListener('click', handleChangeMode);
